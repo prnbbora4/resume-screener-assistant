@@ -31,7 +31,16 @@
         </x-page-heading>
 
         <section class="rounded-2xl border border-gray-200/80 bg-white p-5 shadow-sm shadow-gray-200/40 sm:p-6" aria-label="Search and filter analyses">
-            <form action="/history" method="GET" data-history-filter-form class="space-y-5">
+            <form action="{{ route('analyses.history') }}" method="GET" data-history-filter-form class="space-y-5">
+                @if ($errors->any())
+                    <div class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert">
+                        <ul class="list-inside list-disc">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="grid gap-5 lg:grid-cols-[minmax(260px,1.3fr)_minmax(0,1fr)] lg:items-end">
                     <div>
                         <label for="history-search" class="mb-2 block text-sm font-medium text-gray-700">Search candidates</label>
@@ -115,7 +124,7 @@
 
                 <div class="flex flex-wrap items-center justify-between gap-3 border-t border-gray-100 pt-4">
                     <p class="text-xs text-gray-500">Search by name or narrow results to a match score range.</p>
-                    <a href="/history" class="inline-flex min-h-9 items-center gap-1.5 rounded-lg px-3 text-sm font-semibold text-gray-500 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+                    <a href="{{ route('analyses.history') }}" class="inline-flex min-h-9 items-center gap-1.5 rounded-lg px-3 text-sm font-semibold text-gray-500 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
                         Reset Filters
                         <svg class="size-3.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                             <path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3L4.5 9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
@@ -229,7 +238,7 @@
                 description="Try adjusting your search or score range to see more results."
             >
                 <x-slot:actions>
-                    <a href="/history" class="inline-flex min-h-10 items-center justify-center rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+                    <a href="{{ route('analyses.history') }}" class="inline-flex min-h-10 items-center justify-center rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
                         Clear Filters
                     </a>
                 </x-slot:actions>

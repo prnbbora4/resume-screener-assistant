@@ -63,7 +63,7 @@
     <div data-analysis-report class="mx-auto max-w-6xl space-y-7">
         <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div class="min-w-0">
-                <a href="/analyses" class="mb-4 inline-flex min-h-9 items-center gap-2 rounded-lg pr-3 text-sm font-medium text-gray-500 transition hover:text-indigo-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+                <a href="{{ route('analyses.history') }}" class="mb-4 inline-flex min-h-9 items-center gap-2 rounded-lg pr-3 text-sm font-medium text-gray-500 transition hover:text-indigo-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
                     <svg class="size-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                         <path d="M19 12H5m6 6-6-6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>

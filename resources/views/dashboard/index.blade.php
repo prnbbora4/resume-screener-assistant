@@ -136,7 +136,7 @@
                     <h2 id="recent-analyses-heading" class="text-base font-semibold text-gray-900">Recent analyses</h2>
                     <p class="mt-1 text-sm text-gray-500">Sample activity for dashboard preview</p>
                 </div>
-                <a href="/analyses" class="inline-flex min-h-10 items-center gap-1.5 self-start rounded-lg px-3 text-sm font-semibold text-indigo-600 transition hover:bg-indigo-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 sm:self-auto">
+                <a href="{{ route('analyses.history') }}" class="inline-flex min-h-10 items-center gap-1.5 self-start rounded-lg px-3 text-sm font-semibold text-indigo-600 transition hover:bg-indigo-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 sm:self-auto">
                     View history
                     <svg class="size-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                         <path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -188,7 +188,7 @@
                                             {{ data_get($analysis, 'created_at') ? \Illuminate\Support\Carbon::parse(data_get($analysis, 'created_at'))->format('M j, Y') : '—' }}
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4 text-right">
-                                            <a href="/analyses/{{ data_get($analysis, 'id') }}" class="inline-flex min-h-9 items-center rounded-lg px-3 text-sm font-semibold text-indigo-600 transition hover:bg-indigo-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+                                            <a href="{{ route('analyses.show', data_get($analysis, 'id')) }}" class="inline-flex min-h-9 items-center rounded-lg px-3 text-sm font-semibold text-indigo-600 transition hover:bg-indigo-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
                                                 View
                                                 <span class="sr-only">analysis for {{ data_get($analysis, 'candidate_name', 'candidate') }}</span>
                                             </a>

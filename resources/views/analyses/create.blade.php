@@ -20,7 +20,7 @@
         @endif
 
         <form
-            action="/analyses"
+            action="{{ route('analyses.store') }}"
             method="POST"
             data-analysis-form
             data-min-job-description="50"
@@ -214,7 +214,7 @@
                         <path d="M12 3.75 5 6.5v5.25c0 4.1 2.8 7.3 7 8.5 4.2-1.2 7-4.4 7-8.5V6.5l-7-2.75Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
                         <path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    Raw resume and job description text are not retained in the database. Only the candidate name and completed analysis report are saved.
+                    Resume and job description text is temporarily held in an encrypted processing queue, then discarded after analysis. Only the candidate name and completed report are retained.
                 </p>
                 <button
                     type="submit"

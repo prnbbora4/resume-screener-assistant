@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreResumeAnalysisRequest extends FormRequest
 {
@@ -48,5 +50,21 @@ class StoreResumeAnalysisRequest extends FormRequest
             'resume.min' => 'The candidate resume must be at least 50 characters.',
             'resume.max' => 'The candidate resume may not be longer than 30,000 characters.',
         ];
+    }
+
+    /**
+     * Keep submitted resume and job text out of the session on validation redirects.
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        if ($this->expectsJson()) {
+            parent::failedValidation($validator);
+        }
+
+        throw new HttpResponseException(
+            redirect()->back()
+                ->withInput($this->only('candidate_name'))
+                ->withErrors($validator),
+        );
     }
 }

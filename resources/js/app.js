@@ -224,3 +224,60 @@ if (historyFilterForm) {
         historyFilterForm.requestSubmit();
     });
 }
+
+const analysisStatus = document.querySelector('[data-analysis-status]');
+
+if (analysisStatus) {
+    const statusUrl = analysisStatus.dataset.statusUrl;
+    const statusMessage = analysisStatus.querySelector('[data-analysis-status-message]');
+    const statusHeading = analysisStatus.querySelector('[data-analysis-status-heading]');
+    const progress = analysisStatus.querySelector('[data-analysis-progress]');
+    const pendingIcon = analysisStatus.querySelector('[data-analysis-pending-icon]');
+    const failedIcon = analysisStatus.querySelector('[data-analysis-failed-icon]');
+    let checking = false;
+
+    const checkAnalysisStatus = async () => {
+        if (checking || document.hidden) {
+            return;
+        }
+
+        checking = true;
+        try {
+            const response = await fetch(statusUrl, {
+                headers: { Accept: 'application/json' },
+                cache: 'no-store',
+                credentials: 'same-origin',
+            });
+
+            if (!response.ok) {
+                return;
+            }
+
+            const state = await response.json();
+
+            if (state.status === 'completed' && Number.isInteger(Number(state.analysis_id))) {
+                window.location.assign(`/analyses/${encodeURIComponent(state.analysis_id)}`);
+                return;
+            }
+
+            if (state.status === 'failed') {
+                statusHeading.textContent = 'Analysis could not be completed';
+                statusMessage.textContent = state.message || 'Please try again later.';
+                progress.classList.add('hidden');
+                pendingIcon.classList.add('hidden');
+                failedIcon.classList.remove('hidden');
+                window.clearInterval(statusTimer);
+                return;
+            }
+
+            statusMessage.textContent = state.message || 'Your analysis is being processed.';
+        } catch {
+            statusMessage.textContent = 'We are still waiting for the analysis service. This page will keep checking.';
+        } finally {
+            checking = false;
+        }
+    };
+
+    const statusTimer = window.setInterval(checkAnalysisStatus, 2500);
+    checkAnalysisStatus();
+}
