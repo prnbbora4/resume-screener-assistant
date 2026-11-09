@@ -730,3 +730,161 @@ For UI preview, use a temporary route with sample data only if necessary, and re
 Report files created or modified and actual verification results.
 
 Do not proceed to the next phase.
+
+## Prompt 08 – Analysis History UI
+
+The Analysis Report UI has been completed and verified.
+
+Now implement Phase 7: Analysis History UI.
+
+### Objective
+
+Create a professional history page where HR users can browse previously completed resume analyses.
+
+### View
+
+Create:
+
+resources/views/history/index.blade.php
+
+Use the existing application layout and reusable Blade components.
+
+### Page heading
+
+Title: Analysis History
+
+Description: Review, search, and filter previously analyzed candidates.
+
+Include a prominent "New Analysis" button.
+
+### 1. Search functionality UI
+
+Create a search input:
+
+- Placeholder: Search by candidate name...
+- Search parameter: search
+- Preserve the current search value using request('search').
+- Include a clear search button.
+- Use GET query parameters.
+
+### 2. Match score filters
+
+Create two numeric inputs:
+
+- Minimum Score (0–100).
+- Maximum Score (0–100).
+
+Query parameters:
+
+- min_score
+- max_score
+
+Include an Apply Filters button and Reset Filters link.
+
+Ensure minimum score cannot exceed maximum score through client-side validation and clear validation feedback.
+
+### 3. History table
+
+Display the following columns:
+
+| Column | Description |
+|---|---|
+| Candidate | Candidate name |
+| Match Score | Score with color-coded badge |
+| Matching Skills | Display up to 3 skills |
+| Skill Gaps | Display up to 2 gaps |
+| Date | Analysis creation date |
+| Action | View Report button |
+
+Score colors:
+
+- 80–100: Green.
+- 50–79: Amber.
+- 0–49: Red.
+
+Use dynamic data from a future Laravel paginator variable named $analyses.
+
+Each row should use:
+
+- $analysis->candidate_name
+- $analysis->match_score
+- $analysis->matching_skills
+- $analysis->skill_gaps
+- $analysis->created_at
+
+### 4. Pagination
+
+Prepare the view to use Laravel pagination:
+
+$analyses->links()
+
+Preserve search and filter query parameters across pagination links.
+
+### 5. Empty states
+
+Handle two scenarios:
+
+A. No analyses have been created:
+"Your analysis history is empty."
+
+Include a Start New Analysis button.
+
+B. No results match the current search or filters:
+"No candidates found matching your filters."
+
+Include a Clear Filters link.
+
+### 6. Design requirements
+
+- Professional HR SaaS dashboard.
+- Consistent with existing dashboard and report pages.
+- Responsive table.
+- Horizontal scrolling inside the table container on mobile.
+- Clean search and filter section.
+- Accessible labels and buttons.
+- Subtle borders and shadows.
+- Consistent score indicators.
+
+### 7. Technical requirements
+
+- Laravel Blade.
+- Existing Tailwind CSS 4.
+- Use reusable components where appropriate.
+- Escape all dynamic content.
+- Do not duplicate the main application layout.
+- Use GET-based filters.
+- Prepare for real Laravel paginator data.
+- Do not introduce dependencies.
+
+### Routing
+
+Add a temporary GET route for /history that renders the view with an empty Laravel paginator or suitable in-memory data.
+
+Do not implement database queries yet.
+
+### Restrictions
+
+- Do not modify the database.
+- Do not create migrations.
+- Do not implement AI API integration.
+- Do not implement analysis submission.
+- Do not modify the existing model.
+- Do not insert sample records.
+
+### Verification
+
+1. Preview the history page with sample in-memory data.
+2. Test candidate search UI.
+3. Test minimum and maximum score filters.
+4. Test reset filters.
+5. Verify query parameters are preserved.
+6. Test pagination rendering.
+7. Verify both empty states.
+8. Test mobile responsiveness.
+9. Run npm run build.
+10. Run php artisan test.
+11. Remove any temporary test routes and data after verification.
+
+Report files created or modified and actual verification results.
+
+Do not proceed to the next phase.

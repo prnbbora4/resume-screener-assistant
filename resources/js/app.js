@@ -179,3 +179,48 @@ if (report) {
         }
     });
 }
+
+const historyFilterForm = document.querySelector('[data-history-filter-form]');
+
+if (historyFilterForm) {
+    const minScore = historyFilterForm.querySelector('[data-min-score]');
+    const maxScore = historyFilterForm.querySelector('[data-max-score]');
+    const filterError = historyFilterForm.querySelector('[data-score-filter-error]');
+    const filterStatus = document.querySelector('[data-history-filter-status]');
+    const searchInput = historyFilterForm.querySelector('[name="search"]');
+    const clearSearchButton = historyFilterForm.querySelector('[data-clear-history-search]');
+
+    function validateScoreRange() {
+        const min = minScore.value === '' ? null : Number(minScore.value);
+        const max = maxScore.value === '' ? null : Number(maxScore.value);
+        const invalidRange = min !== null && max !== null && min > max;
+        const message = invalidRange ? 'Minimum Score cannot be greater than Maximum Score.' : '';
+
+        minScore.setCustomValidity(message);
+        maxScore.setCustomValidity(message);
+        filterError.textContent = message;
+        filterError.classList.toggle('hidden', !invalidRange);
+
+        return !invalidRange;
+    }
+
+    minScore.addEventListener('input', validateScoreRange);
+    maxScore.addEventListener('input', validateScoreRange);
+    searchInput.addEventListener('input', () => {
+        clearSearchButton.disabled = searchInput.value.length === 0;
+    });
+
+    historyFilterForm.addEventListener('submit', (event) => {
+        if (!validateScoreRange()) {
+            event.preventDefault();
+            filterStatus.textContent = filterError.textContent;
+            (Number(minScore.value) > Number(maxScore.value) ? minScore : maxScore).reportValidity();
+        }
+    });
+
+    clearSearchButton?.addEventListener('click', () => {
+        searchInput.value = '';
+        clearSearchButton.disabled = true;
+        historyFilterForm.requestSubmit();
+    });
+}
