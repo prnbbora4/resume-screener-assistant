@@ -110,3 +110,72 @@ if (analysisForm) {
         formStatus.textContent = 'Submitting resume for analysis. Please wait.';
     });
 }
+
+const report = document.querySelector('[data-analysis-report]');
+
+if (report) {
+    async function copyText(text) {
+        if (navigator.clipboard?.writeText) {
+            try {
+                await navigator.clipboard.writeText(text);
+                return true;
+            } catch {
+                // Fall through to the legacy clipboard method when permission is unavailable.
+            }
+        }
+
+        const temporaryInput = document.createElement('textarea');
+        temporaryInput.value = text;
+        temporaryInput.setAttribute('readonly', '');
+        temporaryInput.style.position = 'fixed';
+        temporaryInput.style.opacity = '0';
+        document.body.append(temporaryInput);
+        temporaryInput.select();
+
+        let copied = false;
+        try {
+            copied = document.execCommand('copy');
+        } finally {
+            temporaryInput.remove();
+        }
+
+        return copied;
+    }
+
+    report.querySelectorAll('[data-copy-question]').forEach((button) => {
+        button.addEventListener('click', async () => {
+            const status = button.closest('li')?.querySelector('[data-copy-status]');
+
+            try {
+                const copied = await copyText(button.dataset.questionText ?? '');
+                if (status) {
+                    status.textContent = copied ? 'Copied' : 'Copy unavailable';
+                    status.classList.toggle('text-red-600', !copied);
+                }
+            } catch {
+                if (status) {
+                    status.textContent = 'Copy unavailable';
+                    status.classList.add('text-red-600');
+                }
+            }
+        });
+    });
+
+    report.querySelector('[data-copy-all]')?.addEventListener('click', async () => {
+        const status = report.querySelector('[data-copy-all-status]');
+        const questions = [...report.querySelectorAll('[data-copy-question]')]
+            .map((button, index) => `${index + 1}. ${button.dataset.questionText ?? ''}`)
+            .join('\n');
+
+        try {
+            const copied = await copyText(questions);
+            if (status) {
+                status.textContent = copied ? 'All interview questions copied.' : 'Copy unavailable. Select and copy the questions manually.';
+            }
+        } catch {
+            if (status) {
+                status.textContent = 'Copy unavailable. Select and copy the questions manually.';
+            }
+        }
+    });
+}

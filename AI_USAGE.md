@@ -581,3 +581,152 @@ Do not implement the POST processing logic yet. The form action can point to a p
 Report files created or modified and actual verification results.
 
 Do not proceed to the next phase.
+
+## Prompt 07 – Analysis report UI
+
+The Resume Analysis Input Form has been implemented and verified.
+
+Now implement Phase 6: AI Analysis Report UI.
+
+### Objective
+
+Create a professional report page that displays the structured results of an AI-powered resume analysis.
+
+### View
+
+Create:
+
+resources/views/analyses/show.blade.php
+
+Use the existing application layout and reusable Blade components.
+
+### Report structure
+
+#### 1. Report header
+
+Display:
+
+- Heading: Candidate Analysis Report.
+- Candidate name.
+- Analysis date.
+- Back to History link.
+- New Analysis button.
+
+#### 2. Match score section
+
+Create a visually prominent match score card.
+
+Requirements:
+
+- Display score as a percentage (0–100).
+- Use a circular progress indicator or another professional visualization.
+- Display a short interpretation based on the score.
+
+Score interpretation:
+
+- 80–100: Strong Match.
+- 50–79: Moderate Match.
+- 0–49: Low Match.
+
+Use corresponding green, amber, and red indicators.
+
+The score should come from a dynamic Blade variable.
+
+#### 3. Top 5 Matching Skills
+
+Display matching skills in a visually appealing list or grid.
+
+Each skill should have:
+- Skill name.
+- Check icon or positive indicator.
+
+Display exactly five items from the report data.
+
+#### 4. Top 3 Skill Gaps
+
+Display the missing or weak skills.
+
+Each item should have:
+- Skill name.
+- Warning or gap indicator.
+
+Display exactly three items.
+
+#### 5. Suggested Interview Questions
+
+Display three suggested interview questions.
+
+Requirements:
+
+- Number each question.
+- Use a clean card or list layout.
+- Include a copy button for each question.
+- Include a copy-all button.
+- Use JavaScript Clipboard API with graceful fallback where possible.
+- Display a brief success message when copied.
+
+#### 6. Report disclaimer
+
+Display a short disclaimer:
+
+"AI-generated recommendations are intended to support HR decision-making and should not be treated as the sole basis for hiring decisions."
+
+### Dynamic data
+
+Use these variables:
+
+- $analysis
+- $analysis->candidate_name
+- $analysis->match_score
+- $analysis->matching_skills
+- $analysis->skill_gaps
+- $analysis->interview_questions
+- $analysis->created_at
+
+Ensure the template safely handles missing or invalid optional values without generating Blade errors.
+
+Do not create fake database records.
+
+For UI preview, use a temporary route with sample data only if necessary, and remove it afterward.
+
+### Design requirements
+
+- Professional recruitment SaaS appearance.
+- Match the existing dashboard design.
+- Clear visual hierarchy.
+- Responsive mobile layout.
+- Accessible progress visualization.
+- Consistent spacing and typography.
+- Avoid excessive animations.
+- Ensure long skill names and interview questions wrap correctly.
+
+### Technical requirements
+
+- Laravel Blade.
+- Existing Tailwind CSS 4.
+- Reusable components where appropriate.
+- Escape dynamic user and AI-generated text using normal Blade escaping.
+- No unnecessary frontend dependencies.
+
+### Restrictions
+
+- Do not call OpenAI.
+- Do not implement analysis submission.
+- Do not create new database columns.
+- Do not implement history functionality.
+- Do not change existing migrations or models.
+
+### Verification
+
+1. Preview the report using temporary in-memory sample data.
+2. Test score values representing strong, moderate, and low matches.
+3. Verify all five skills and three gaps display correctly.
+4. Test copy-question and copy-all functionality.
+5. Test mobile responsiveness.
+6. Run npm run build.
+7. Run php artisan test.
+8. Remove temporary routes and test data.
+
+Report files created or modified and actual verification results.
+
+Do not proceed to the next phase.
