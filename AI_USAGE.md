@@ -314,3 +314,127 @@ After implementation:
 Report all files created or modified and the actual verification results.
 
 Do not proceed to the next phase.
+
+## Prompt 05 – Dashboard UI
+
+The application layout and reusable Blade components have been implemented and verified.
+
+Now implement Phase 4: Create the Resume Screener Assistant dashboard UI.
+
+### Objective
+
+Build a polished SaaS dashboard that gives HR users an overview of candidate screening activity and provides quick access to resume analysis.
+
+### Dashboard route
+
+The dashboard will eventually be available at:
+
+/
+
+For now, implement the Blade view and a minimal route that renders it.
+
+View:
+
+resources/views/dashboard/index.blade.php
+
+Use the existing reusable application layout and components.
+
+### Dashboard sections
+
+#### 1. Welcome section
+
+Display:
+
+Heading: Welcome to Resume Screener Assistant
+
+Description: Analyze resumes against job descriptions, identify relevant skills, and discover candidate suitability with AI-powered insights.
+
+Include a prominent button:
+
+"Start New Analysis"
+
+This should eventually navigate to the resume analysis form.
+
+#### 2. Statistics cards
+
+Display four cards:
+
+- Total Analyses
+- Average Match Score
+- High Matches (80–100)
+- Low Matches (0–49)
+
+For this initial UI implementation, use clearly identifiable temporary placeholder values.
+
+Important: Structure the cards so they can later receive dynamic values from the controller. Do not hardcode statistics into reusable components.
+
+#### 3. Quick action section
+
+Create a prominent card encouraging HR users to start a new resume screening.
+
+Include:
+- A document/resume icon.
+- Short description.
+- Start Analysis button.
+
+#### 4. Recent activity section
+
+Create a recent analyses table with:
+
+- Candidate Name
+- Match Score
+- Matching Skills
+- Date
+- Action
+
+Display 3–5 realistic-looking sample rows strictly as temporary UI placeholders.
+
+Use color-coded score indicators:
+
+- 80–100: Green.
+- 50–79: Amber.
+- 0–49: Red.
+
+Do not insert placeholder data into the database.
+
+#### 5. Empty-state support
+
+Create an appropriate empty state for when there are no previous analyses.
+
+### UI expectations
+
+- Professional HR SaaS dashboard.
+- Consistent with the existing sidebar and header.
+- Responsive desktop, tablet and mobile layouts.
+- Good typography and visual hierarchy.
+- Subtle borders and shadows.
+- Accessible buttons and table elements.
+- Avoid excessive animations or unnecessary decorative elements.
+
+### Technical requirements
+
+1. Use Blade templates and reusable components.
+2. Use the existing Tailwind CSS 4 setup.
+3. Reuse existing layout components.
+4. Keep the dashboard view separate from business logic.
+5. Use dynamic Blade variables for statistics and recent analyses.
+6. Use sensible fallback values when data is unavailable.
+7. Avoid introducing new dependencies.
+
+### Routing
+
+Add a temporary dashboard route to routes/web.php.
+
+Do not create the analysis form or history functionality yet.
+
+### Verification
+
+1. Open the dashboard in a browser if browser preview is available.
+2. Verify responsive behavior.
+3. Run npm run build.
+4. Run php artisan test.
+5. Check for Blade errors.
+
+Report files created or modified and actual verification results.
+
+Do not proceed to the next phase.

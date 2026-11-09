@@ -7,6 +7,7 @@ function closeSidebar() {
     sidebar?.classList.add('-translate-x-full');
     sidebarOverlay?.classList.add('hidden');
     sidebarToggle?.setAttribute('aria-expanded', 'false');
+    sidebarToggle?.focus({ preventScroll: true });
 }
 
 sidebarToggle?.addEventListener('click', () => {

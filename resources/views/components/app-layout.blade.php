@@ -15,7 +15,7 @@
         @fonts
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="min-h-screen bg-gray-50 font-sans text-gray-900 antialiased">
+    <body class="min-h-screen overflow-x-hidden bg-gray-50 font-sans text-gray-900 antialiased">
         <div class="min-h-screen">
             <div
                 data-sidebar-overlay
