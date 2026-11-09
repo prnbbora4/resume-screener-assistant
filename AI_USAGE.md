@@ -124,3 +124,5 @@ You have permission to create and edit project files and execute the required te
 
 Report the exact files modified and the actual command results. Do not claim success if a command fails.
 
+## Prompt 03 – Create Eloquent model
+
