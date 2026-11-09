@@ -438,3 +438,146 @@ Do not create the analysis form or history functionality yet.
 Report files created or modified and actual verification results.
 
 Do not proceed to the next phase.
+
+
+## Prompt 06 – Resume analysis input form
+
+The dashboard UI has been completed and verified.
+
+Now implement Phase 5: Resume Analysis Input Form.
+
+### Objective
+
+Create a professional form that allows HR users to submit candidate information and initiate an AI-powered resume screening.
+
+### View
+
+Create:
+
+resources/views/analyses/create.blade.php
+
+Use the existing application layout and reusable Blade components.
+
+### Form fields
+
+#### 1. Candidate Name
+
+- Label: Candidate Name
+- Text input.
+- Required.
+- Maximum 255 characters.
+- Placeholder: Enter candidate's full name.
+
+#### 2. Job Description
+
+- Label: Job Description
+- Large textarea.
+- Required.
+- Placeholder: Paste the job description here...
+- Character counter.
+- Clear input button.
+- Minimum 50 characters.
+- Maximum 20,000 characters.
+
+#### 3. Candidate Resume
+
+- Label: Candidate Resume
+- Large textarea.
+- Required.
+- Placeholder: Paste the candidate's resume here...
+- Character counter.
+- Clear input button.
+- Minimum 50 characters.
+- Maximum 30,000 characters.
+
+### Form layout
+
+Build a clean, modern two-column layout on desktop if appropriate:
+
+Left section:
+- Job description.
+
+Right section:
+- Candidate resume.
+
+Candidate name should appear above both sections.
+
+On mobile, stack everything vertically.
+
+### UI elements
+
+Include:
+
+- Page heading: New Resume Analysis.
+- Short description explaining the screening process.
+- Candidate information input.
+- Job description textarea.
+- Resume textarea.
+- Character counters.
+- Clear buttons.
+- Submit button: Analyze Resume.
+- Loading indicator on submission.
+- Short privacy note explaining that raw resume and job description text are not retained in the database.
+
+Include a small informational section explaining that AI will generate:
+
+- Match score.
+- Top 5 matching skills.
+- Top 3 skill gaps.
+- 3 suggested interview questions.
+
+### Frontend behavior
+
+Use lightweight JavaScript for:
+
+1. Character counting.
+2. Clear textarea buttons.
+3. Basic client-side validation.
+4. Preventing repeated submissions.
+5. Showing a loading state after submission.
+
+Ensure JavaScript is accessible and does not conflict with the existing mobile navigation functionality.
+
+### Technical requirements
+
+- Laravel Blade.
+- Existing Tailwind CSS 4.
+- Semantic HTML.
+- CSRF protection.
+- Use POST form submission.
+- Preserve entered values using old() where applicable.
+- Display Laravel validation errors.
+- Use accessible labels and buttons.
+- Responsive design.
+- Avoid external frontend dependencies.
+
+### Routing
+
+Add a temporary GET route to display the analysis form.
+
+Do not implement the POST processing logic yet. The form action can point to a planned route, but clearly separate the GET form route from future submission processing.
+
+### Restrictions
+
+- Do not call the OpenAI API.
+- Do not create the AI service.
+- Do not create new database columns.
+- Do not save submitted form data.
+- Do not implement file uploads.
+- Do not implement analysis history.
+
+### Verification
+
+1. Open the form in a browser.
+2. Test character counters.
+3. Test clear buttons.
+4. Test required-field validation.
+5. Test loading state.
+6. Verify mobile responsiveness.
+7. Run npm run build.
+8. Run php artisan test.
+9. Check for Blade and JavaScript errors.
+
+Report files created or modified and actual verification results.
+
+Do not proceed to the next phase.

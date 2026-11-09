@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::view('/analyses/create', 'analyses.create')->name('analyses.create');
+
 Route::get('/', function () {
     // Temporary UI preview data; replace with persisted statistics when the dashboard controller is added.
     return view('dashboard.index', [
