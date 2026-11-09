@@ -888,3 +888,77 @@ Do not implement database queries yet.
 Report files created or modified and actual verification results.
 
 Do not proceed to the next phase.
+
+## Prompt 09 – Create Form Requests and Server-Side Validation
+
+Inspect the existing Laravel 13 project, especially the current views, database migration, Eloquent model, and Laravel conventions.
+
+### Objective
+Create dedicated Form Request classes for:
+1. Submitting a resume analysis.
+2. Filtering the analysis history.
+
+Do not implement the OpenAI integration, database persistence, controllers, or permanent routes in this phase.
+
+### 1. StoreResumeAnalysisRequest
+
+Create:
+
+`app/Http/Requests/StoreResumeAnalysisRequest.php`
+
+Validation requirements:
+
+- `candidate_name`: required, string, maximum 255 characters.
+- `job_description`: required, string, minimum 50 characters, maximum 20,000 characters.
+- `resume`: required, string, minimum 50 characters, maximum 30,000 characters.
+
+Use clear, user-friendly validation messages.
+
+Ensure the request is authorized for now by returning `true` from `authorize()`. Authentication can be considered separately.
+
+### 2. HistoryFilterRequest
+
+Create:
+
+`app/Http/Requests/HistoryFilterRequest.php`
+
+Validate these optional GET query parameters:
+
+- `search`: nullable string, maximum 255 characters.
+- `min_score`: nullable integer, minimum 0, maximum 100.
+- `max_score`: nullable integer, minimum 0, maximum 100.
+
+Add cross-field validation so that `min_score` cannot be greater than `max_score`.
+
+Provide a clear validation message when the score range is invalid.
+
+The request should preserve normal GET query-string behavior and return `true` from `authorize()` for now.
+
+### 3. Important implementation rules
+
+- Follow Laravel 13 conventions and the existing project structure.
+- Use Form Request classes rather than placing validation logic in Blade or JavaScript.
+- Do not change the existing database migration or Eloquent model.
+- Do not store the job description or resume anywhere.
+- Do not introduce unnecessary dependencies.
+- Do not change the existing UI design or functionality.
+- Do not register permanent routes or create controllers in this phase.
+
+### 4. Verification
+
+After implementation:
+
+1. Run `php artisan test`.
+2. Run `php artisan route:list` to ensure no unintended routes were added.
+3. Verify that Laravel can load both Form Request classes.
+4. Test valid and invalid inputs using an appropriate Laravel test or temporary verification method.
+5. Confirm that a minimum score greater than the maximum score is rejected.
+6. Do not make any real OpenAI API calls.
+
+At the end, report:
+- Files created or modified.
+- Validation rules implemented.
+- Commands and tests executed.
+- Any errors or issues encountered.
+
+Stop after completing this phase. Do not start the next implementation phase.
