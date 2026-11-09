@@ -72,3 +72,55 @@ Then provide:
 6. Any dependencies that need installation.
 
 **Important:** Do not modify or generate any files yet. First provide the architecture and implementation plan. Wait for my approval before proceeding.
+
+## Prompt 02 – SQLite configuration and database migration
+
+The project inspection is complete.
+
+The existing project has:
+- Laravel 13.
+- SQLite configured as the default database.
+- DB_CONNECTION=sqlite in .env.
+- database/database.sqlite already exists.
+- config/database.php uses database/database.sqlite when DB_DATABASE is unset.
+
+Now implement the resume_analyses database migration.
+
+### Create migration
+
+Run:
+
+php artisan make:migration create_resume_analyses_table
+
+Create the following schema:
+
+- id: primary key
+- candidate_name: string, required
+- match_score: unsigned tiny integer, required
+- matching_skills: JSON, required
+- skill_gaps: JSON, required
+- interview_questions: JSON, required
+- timestamps
+
+### Database constraints
+
+- Add an index on candidate_name.
+- Add an index on match_score.
+- Add a SQLite-compatible CHECK constraint ensuring match_score is between 0 and 100 inclusive.
+- Ensure the migration supports SQLite correctly.
+
+### Instructions
+
+1. Use the existing SQLite configuration.
+2. Do not unnecessarily modify .env.
+3. Update .env.example only if necessary.
+4. Run php artisan migrate.
+5. Run php artisan migrate:status.
+6. Verify that the new table exists.
+7. Do not modify unrelated files.
+8. Do not create models, controllers, services, or views yet.
+
+You have permission to create and edit project files and execute the required terminal commands.
+
+Report the exact files modified and the actual command results. Do not claim success if a command fails.
+
