@@ -962,3 +962,44 @@ At the end, report:
 - Any errors or issues encountered.
 
 Stop after completing this phase. Do not start the next implementation phase.
+
+## Additional prompt history – End-to-end implementation and deployment guidance
+
+The original Prompts 01–09 above are retained. The following follow-up requests were made after the phased implementation.
+
+## Prompt 10 – Complete the product
+
+Can you complete this product for production readiness? Write the full working code.
+
+The implementation was extended into a working workflow: database-backed dashboard and history, validated analysis submission, queued OpenAI processing, report persistence and display, status polling, rate limiting, environment-based API configuration, tests, and setup documentation. The chosen design remained public/no-login, used a background queue, retained completed reports only, and did not include deployment.
+
+## Prompt 11 – OpenAI API key setup
+
+Okay, how do I get an OpenAI API key? Can you guide me step by step?
+
+Guidance covered creating an API key in the OpenAI platform, configuring API billing, storing the key only in the local `.env`, clearing Laravel's cached configuration, and restarting the queue worker. The key was not requested in chat.
+
+## Prompt 12 – Realistic test data
+
+Now give me test data for testing in real.
+
+Provided fictional candidate and job-description text suitable for a real API-backed workflow, with a reminder about API charges and candidate-data privacy.
+
+
+## Tools used
+
+- GitHub Copilot chat and coding assistance for planning, implementation, troubleshooting, and documentation.
+- PowerShell for PHP, Composer, Artisan, Node/npm, process, and log checks.
+- `rg` and file inspection tools to locate code and review project files.
+- Laravel Artisan commands, including `migrate`, `migrate:status`, `route:list`, `view:cache`, `view:clear`, `test`, and Tinker.
+- Pest/PHPUnit tests and Laravel HTTP fakes to validate request handling and AI response behavior without relying on live API calls during tests.
+- Laravel Pint for PHP formatting checks.
+- npm and Vite (`npm run build`) for frontend asset compilation.
+
+
+## Three key prompts
+
+1. **Prompt 01 – Project inspection and architecture planning:** asked for a Laravel 13 project inspection and a complete implementation plan before any code changes.
+2. **Prompt 05 – Dashboard UI:** specified the dashboard sections, responsive design, dynamic data shape, temporary sample data restrictions, and verification steps.
+3. **Prompt 10 – Complete the product:** asked to finish the complete product with working code, leading to the end-to-end queued analysis workflow and its validation and tests.
+
